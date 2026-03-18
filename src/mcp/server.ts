@@ -715,7 +715,7 @@ export async function startMcpHttpServer(port: number, options?: { quiet?: boole
         const request = new Request(url, { method: "POST", headers, body: rawBody });
         const response = await transport.handleRequest(request, { parsedBody: body });
 
-        nodeRes.writeHead(response.status, Object.fromEntries(response.headers as unknown as Iterable<[string, string]>));
+        nodeRes.writeHead(response.status, Object.fromEntries(response.headers));
         nodeRes.end(Buffer.from(await response.arrayBuffer()));
         log(`${ts()} POST /mcp ${label} (${Date.now() - reqStart}ms)`);
         return;
@@ -753,7 +753,7 @@ export async function startMcpHttpServer(port: number, options?: { quiet?: boole
         const rawBody = nodeReq.method !== "GET" && nodeReq.method !== "HEAD" ? await collectBody(nodeReq) : undefined;
         const request = new Request(url, { method: nodeReq.method || "GET", headers, ...(rawBody ? { body: rawBody } : {}) });
         const response = await transport.handleRequest(request);
-        nodeRes.writeHead(response.status, Object.fromEntries(response.headers as unknown as Iterable<[string, string]>));
+        nodeRes.writeHead(response.status, Object.fromEntries(response.headers));
         nodeRes.end(Buffer.from(await response.arrayBuffer()));
         return;
       }
