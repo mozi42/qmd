@@ -4,7 +4,8 @@
     "noEmit": false,
     "outDir": "dist",
     "declaration": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "lib": ["ESNext", "DOM"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.test.ts", "src/test-preload.ts", "src/bench-*.ts"]
